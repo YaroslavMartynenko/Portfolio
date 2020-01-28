@@ -2,8 +2,8 @@
 
 ## Description
 
-This application shows how changes the number of company shares 
-when the percentage of shares in the portfolio changes with a constant budget.
+This application shows how the number of company shares changes
+when the percentage of shares in the portfolio changes (with a constant budget).
 
 ### Input data
 
