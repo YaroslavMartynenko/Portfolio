@@ -1,36 +1,40 @@
-import java.util.Scanner;
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
+
     public static void main(String[] args) {
 
-        Share share1 = new Share("Apple", 100.0);
-        Share share2 = new Share("IBM", 60.0);
-        Share share3 = new Share("Microsoft", 80.0);
+        Isin appleShare = new Isin("Apple", new BigDecimal(100.0));
+        Isin ibmShare = new Isin("IBM", new BigDecimal(50.0));
+        Isin microsoftShare = new Isin("Microsoft", new BigDecimal(150.0));
 
-        Portfolio portfolio = new Portfolio(100000, share1, share2, share3, 20, 60, 20);
+        Map<Isin, BigDecimal> isinAllocationMap = new HashMap<>();
+        isinAllocationMap.put(appleShare, new BigDecimal(20.0));
+        isinAllocationMap.put(ibmShare, new BigDecimal(20.0));
+        isinAllocationMap.put(microsoftShare, new BigDecimal(60.0));
 
-        portfolio.showInfo();
+        IsinAllocation isinAllocation = new IsinAllocation();
+        isinAllocation.setIsinAllocationMap(isinAllocationMap);
 
-        System.out.println("-----------------------");
+        Portfolio portfolio = new Portfolio(new BigDecimal(100000.0), isinAllocation);
 
-        Scanner scanner = new Scanner(System.in);
+        portfolio.showPortfolio();
 
-        System.out.println("Input new shares percentage:");
-        double newShare1Percentage = scanner.nextDouble();
-        double newShare2Percentage = scanner.nextDouble();
-        double newShare3Percentage = scanner.nextDouble();
+        Portfolio newPortfolio = portfolio.clone();
 
-        Portfolio newPortfolio = newPortfolio = portfolio.clone();
+        Isin someShare = new Isin("someCompany", new BigDecimal(200.0));
+        newPortfolio.addNewIsinAndItsAllocationToPortfolio(someShare, new BigDecimal(20.0));
 
-        newPortfolio.setShare1Percentage(newShare1Percentage);
-        newPortfolio.setShare2Percentage(newShare2Percentage);
-        newPortfolio.setShare3Percentage(newShare3Percentage);
-
-        newPortfolio.showInfo();
+        newPortfolio.showPortfolio();
+        portfolio.showPortfolio();
 
 
-        System.out.println("-----------------------");
-        portfolio.showInfo();
+
+
+
+
 
     }
 }
